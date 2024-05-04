@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo App</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.5/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-6">
+    <h1 class="text-4xl font-bold mb-4">Spring Boot ToDo Application</h1>
+    <table class="w-full text-md bg-white shadow-md rounded mb-4">
+        <thead class="border-b">
+        <tr>
+            <th class="text-left p-3 px-5">Actions</th>
+            <th class="text-left p-3 px-5">Id</th>
+            <th class="text-left p-3 px-5">Description</th>
+            <th class="text-left p-3 px-5">Is Complete</th>
+            <th class="text-left p-3 px-5">Created At</th>
+            <th class="text-left p-3 px-5">Updated At</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item:${todoItems}" class="border-b hover:bg-orange-100">
+            <td>
+                <div class="flex btn btn-group-md" role="group">
+                    <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded" th:href="@{/edit/{id}(id=${item.id})}">
+                        🖊️ Edit</a>
+                    <a class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" th:href="@{/delete/{id}(id=${item.id})}">
+                        🗑 Delete</a>
+                </div>
+            </td>
+            <td class="p-3 px-5" th:text="${item.id}"></td>
+            <td class="p-3 px-5" th:text="${item.description}"></td>
+            <td class="p-3 px-5">
+                <span th:if="${item.isCompleted}==true" class="bg-green-500 text-white py-1 px-3 rounded-full text-xs" th:text="Yes"></span>
+                <span th:unless="${item.isCompleted}==true" class="bg-red-500 text-white py-1 px-3 rounded-full text-xs" th:text="No"></span>
+            </td>
+            <td class="p-3 px-5" th:text="${item.createdAt}"></td>
+            <td class="p-3 px-5" th:text="${item.updatedAt}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <p><a href="/create-todo" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create a ToDo</a></p>
+</div>
+</body>
+</html>
